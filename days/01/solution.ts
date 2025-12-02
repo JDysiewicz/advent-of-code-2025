@@ -91,7 +91,11 @@ const normaliseRange = (total: number): number => {
     newTotal = (100 + (total % 100)) % 100;
   }
 
-  return newTotal;
+  if (newTotal === 100 || newTotal === -100) {
+    newTotal = 0;
+  }
+
+  return Math.abs(newTotal);
 };
 
 solutionPrinter(1, 1, part1());
