@@ -21,6 +21,9 @@ const part2 = () => {
   }, 0);
 };
 
+// iteratively build a array of length `size`; for each
+// digit in line attempt to replace digits in solution array
+// if new digit is greater than existing.
 const findLargestCombination = (line: string, size: number): number => {
   let solutionArr = new Array(size).fill(null);
 
@@ -31,6 +34,8 @@ const findLargestCombination = (line: string, size: number): number => {
     const remainingLineLength = splitArr.length - (i + 1);
 
     for (let j = 0; j < solutionArr.length; j++) {
+      // Can only replace if there's enough remaining digits in line
+      // to fill the desired solution length.
       const remainingSolutionLength = solutionArr.length - (j + 1);
       if (
         remainingLineLength >= remainingSolutionLength &&
@@ -38,6 +43,9 @@ const findLargestCombination = (line: string, size: number): number => {
       ) {
         solutionArr[j] = num;
         const firstHalf = solutionArr.slice(0, j + 1);
+
+        // Replacing an early digit will always be higher number, so
+        // all lower digits become null.
         const secondHalf = new Array(remainingSolutionLength).fill(null);
 
         solutionArr = [...firstHalf, ...secondHalf];
